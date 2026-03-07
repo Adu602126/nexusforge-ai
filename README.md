@@ -53,9 +53,11 @@ streamlit run app.py
 
 4. (Optional) Set API Keys
 
-export OPENAI_API_KEY="sk-..."           # For LLM-powered planning
-export SENDGRID_API_KEY="SG..."          # For real email sending
-export ETHEREUM_PRIVATE_KEY="0x..."      # For real blockchain logging
+export OPENAI_API_KEY="sk-..."             # For LLM-powered planning
+
+export SENDGRID_API_KEY="SG..."            # For real email sending
+
+export ETHEREUM_PRIVATE_KEY="0x..."        # For real blockchain logging
 
 
 ## Key Technical Highlights
