@@ -2,6 +2,7 @@
 
 | Agentic AI system for intelligent, compliant, and personalized BFSI email campaigns
 
+
 # 📜 Architecture Overview
 NexusForge/
 ├── core/
@@ -19,7 +20,8 @@ NexusForge/
 │   └── generate_data.py      ← 100 fake BFSI customers + historical opens CSV
 ├── app.py                    ← Streamlit Dashboard (6 pages)
 └── requirements.txt
-text
+
+
 #🕵️ Agents & Features
 
 | Agent              | Description                                      | Key Tech                          |
@@ -37,6 +39,7 @@ text
 | ARViz              | QR code → AR.js 3D email preview                 | AR.js, A-Frame, qrcode            |
 | MetaLearner        | Self-evolving prompts from run history           | JSON logging, NumPy               |
 
+
 #🚀 Quick Start
 
 1. Install Dependencies
@@ -53,6 +56,7 @@ streamlit run app.py
 export OPENAI_API_KEY="sk-..."           # For LLM-powered planning
 export SENDGRID_API_KEY="SG..."          # For real email sending
 export ETHEREUM_PRIVATE_KEY="0x..."      # For real blockchain logging
+
 
 ## Key Technical Highlights
 
