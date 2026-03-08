@@ -668,18 +668,18 @@ elif page == "💬 AI Chat":
                     context += f"\nCurrent metrics: Open={st.session_state.analytics.get('open_rate', 0):.1f}%, Click={st.session_state.analytics.get('click_rate', 0):.1f}%"
 
                 try:
-                    import anthropic
-                    client = anthropic.Anthropic()
-                    response = client.messages.create(
-                        model="claude-sonnet-4-6",
-                        max_tokens=600,
-                        system=f"""You are NexusForge AI Assistant, an expert in BFSI (Banking, Financial Services, Insurance) 
-                        email marketing campaigns. You help marketing teams optimize their email campaigns. 
-                        Be concise, actionable, and BFSI-specific.
-                        {f'Campaign Context: {context}' if context else ''}""",
-                        messages=[{"role": "user", "content": user_input}]
-                    )
-                    ai_response = response.content[0].text
+                    import sys, os
+                    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+                    from core.config import gemini_generate
+                    full_prompt = f"""You are NexusForge AI Assistant, an expert in BFSI (Banking, Financial Services, Insurance) email marketing campaigns. You help marketing teams optimize their email campaigns. Be concise, actionable, and BFSI-specific.
+{f'Campaign Context: {context}' if context else ''}
+
+User question: {user_input}
+
+Answer concisely in 3-5 lines:"""
+                    ai_response = gemini_generate(full_prompt, max_tokens=400)
+                    if not ai_response:
+                        raise Exception("Empty response")
                 except Exception:
                     # Fallback rule-based responses
                     responses = {

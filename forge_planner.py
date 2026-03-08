@@ -22,14 +22,11 @@ import pandas as pd
 
 logger = logging.getLogger("ForgePlanner")
 
-# ── Try importing LangChain (graceful fallback for demo) ──
-try:
-    from langchain.prompts import PromptTemplate
-    from langchain_openai import ChatOpenAI
-    LANGCHAIN_AVAILABLE = True
-except ImportError:
-    LANGCHAIN_AVAILABLE = False
-    logger.warning("LangChain not installed — using rule-based planning fallback.")
+# ── Gemini LLM integration ────────────────────────────────
+import sys, os
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
+from core.config import gemini_generate, GEMINI_API_KEY
+GEMINI_AVAILABLE = bool(GEMINI_API_KEY and GEMINI_API_KEY != "your_gemini_api_key_here")
 
 
 # ══════════════════════════════════════════════════════════════
@@ -281,15 +278,13 @@ class ForgePlanner:
     5. Return best JSON plan
     """
 
-    def __init__(self, llm_model: str = "gpt-4o-mini"):
+    def __init__(self, llm_model: str = "gemini-2.0-flash"):
         self.llm_model = llm_model
-        self.llm = None
-        if LANGCHAIN_AVAILABLE:
-            try:
-                self.llm = ChatOpenAI(model=llm_model, temperature=0.7)
-                logger.info(f"ForgePlanner: LLM loaded ({llm_model}).")
-            except Exception as e:
-                logger.warning(f"ForgePlanner: LLM init failed ({e}) — using rule-based fallback.")
+        self.use_gemini = GEMINI_AVAILABLE
+        if self.use_gemini:
+            logger.info(f"ForgePlanner: Gemini LLM ready ({llm_model}).")
+        else:
+            logger.warning("ForgePlanner: Gemini key not set — using rule-based fallback.")
 
     def _generate_single_variant(self, df: pd.DataFrame, goal: str, variant_seed: int, foresight: Dict) -> Dict:
         """Generate one plan variant (called 3x in parallel)."""
