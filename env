@@ -1,0 +1,27 @@
+# ============================================================
+# NexusForge — Environment Configuration
+# ============================================================
+# IMPORTANT: Never commit this file to GitHub!
+# Add .env to your .gitignore
+# ============================================================
+
+# ── Gemini API (Primary LLM) ────────────────────────────────
+GEMINI_API_KEY=AIzaSyB1tUnvxpizgZTg2-IU_-R8_i44cpFrUxI
+GEMINI_MODEL=gemini-2.0-flash
+
+# ── SendGrid (Email Sending) ────────────────────────────────
+# Leave as DEMO to run in simulation mode (no real emails sent)
+SENDGRID_API_KEY=DEMO
+
+# ── CampaignX API (InXiteOut Hackathon) ────────────────────
+# Fill in after registering at campaignx@inxiteout.ai
+CAMPAIGNX_API_KEY=
+CAMPAIGNX_API_BASE_URL=
+
+# ── Ethereum / Blockchain (Optional) ───────────────────────
+# Leave blank to use simulation mode
+ETHEREUM_PRIVATE_KEY=
+
+# ── App Config ──────────────────────────────────────────────
+APP_ENV=development
+LOG_LEVEL=INFO
